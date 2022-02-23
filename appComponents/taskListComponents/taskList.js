@@ -178,6 +178,7 @@ export default function TaskList() {
   );
 }
 
+//buttons opacity .7, flatlist delete opacity 0.6
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -198,8 +199,8 @@ const styles = StyleSheet.create({
     alignItems: "center",
     borderWidth: 2,
     borderRadius: 30,
-    borderColor: "#d42efa",
     backgroundColor: "#f00",
+    opacity: 0.6,
   },
   flatListComplete: {
     padding: 5,
@@ -240,7 +241,7 @@ const styles = StyleSheet.create({
     padding: 10,
     borderRadius: 10,
     alignSelf: "center",
-    opacity: 0.9,
+    opacity: 0.7,
   },
   incompleteTaskText: {
     fontFamily: "dongleBold",

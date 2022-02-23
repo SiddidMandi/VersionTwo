@@ -202,8 +202,8 @@ const styles = StyleSheet.create({
     alignItems: "center",
     borderWidth: 2,
     borderRadius: 30,
-    borderColor: "#d42efa",
     backgroundColor: "#f00",
+    opacity: 0.6,
   },
   //buttons
   buttonContainer: {
@@ -223,7 +223,7 @@ const styles = StyleSheet.create({
     padding: 10,
     borderRadius: 10,
     alignSelf: "center",
-    opacity: 0.9,
+    opacity: 0.7,
   },
   //etry modal
   entryTitleText: {

@@ -206,7 +206,7 @@ const styles = StyleSheet.create({
     padding: 10,
     borderRadius: 10,
     alignSelf: "center",
-    opacity: 0.9,
+    opacity: 0.7,
   },
   buttonsContainer: {
     flexDirection: "row",
@@ -226,7 +226,7 @@ const styles = StyleSheet.create({
     borderWidth: 2,
     color: "#000",
     borderRadius: 30,
-    borderColor: "#d42efa",
     backgroundColor: "#f00",
+    opacity: 0.6,
   },
 });
