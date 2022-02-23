@@ -22,8 +22,24 @@ import FlatButton from "../../newassets/cards/button";
 
 export default function Timer() {
   return (
-    <View>
-      <Text> timer here</Text>
-    </View>
+    <ImageBackground
+      style={styles.container}
+      source={require("../../newassets/images/appBackground.png")}
+    >
+      <SafeAreaView style={styles.innerContainer}></SafeAreaView>
+    </ImageBackground>
   );
 }
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: "#fff",
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  innerContainer: {
+    marginTop: 72,
+    marginBottom: 100,
+  },
+});
