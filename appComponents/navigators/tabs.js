@@ -5,6 +5,7 @@ import { Text, View, Image } from "react-native";
 import JournalHome from "../journalComponents/journalHome";
 import Habits from "../habitComponents/tracker";
 import TaskList from "../taskListComponents/taskList";
+import Timer from "../timerComponents/timer";
 
 const Tab = createBottomTabNavigator();
 
@@ -100,6 +101,28 @@ export function MyTabs() {
                   }}
                 >
                   TaskList
+                </Text>
+              </View>
+            ),
+          }}
+        />
+        <Tab.Screen
+          name="Timer"
+          component={Timer}
+          options={{
+            tabBarIcon: ({ focused }) => (
+              <View>
+                <Image
+                  resizeMode="contain"
+                  style={{ tintColor: focused ? "#ff0000" : "#8effec" }}
+                />
+                <Text
+                  style={{
+                    fontSize: 15,
+                    color: focused ? "#ff0000" : "#8effec",
+                  }}
+                >
+                  Timer
                 </Text>
               </View>
             ),
