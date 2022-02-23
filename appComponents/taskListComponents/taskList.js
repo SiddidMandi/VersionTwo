@@ -158,7 +158,7 @@ export default function TaskList() {
             size={24}
             onPress={() => setModalOpen(true)}
           />
-          <Modal transparent visible={modalOpen}>
+          <Modal transparent visible={modalOpen} animationType="slide">
             <View style={{ marginTop: 200 }}>
               <AddTask addTask={addTask} />
               <FlatButton text="close" onPress={() => setModalOpen(false)} />

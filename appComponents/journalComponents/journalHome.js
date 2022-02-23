@@ -134,6 +134,7 @@ export default function JournalHome() {
           />
         </View>
         <Modal
+          animationType="slide"
           transparent
           visible={modalOpen}
           onRequestClose={() => setModalOpen(false)}
