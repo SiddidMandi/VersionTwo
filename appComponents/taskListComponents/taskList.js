@@ -81,33 +81,31 @@ export default function TaskList() {
   };
 
   const renderItemFunction = ({ item }) => {
-    if (item.completed == true) {
-      return (
-        <TouchableOpacity onPress={() => markTaskComplete(item.key)}>
-          <Card>
-            <View style={styles.taskTextView}>
-              <Text
-                style={{
-                  fontFamily: "mochiyBold",
-                  marginHorizontal: 10,
-                  marginVertical: 5,
-                  flex: 1,
-                  textDecorationLine: item?.completed ? "line-through" : "none",
-                }}
-              >
-                {item.task}
-              </Text>
-              <MaterialIcons
-                name="delete"
-                style={styles.flatListDelete}
-                size={25}
-                onPress={() => deleteHandler(item.key)}
-              />
-            </View>
-          </Card>
-        </TouchableOpacity>
-      );
-    }
+    return (
+      <TouchableOpacity onPress={() => markTaskComplete(item.key)}>
+        <Card>
+          <View style={styles.taskTextView}>
+            <Text
+              style={{
+                fontFamily: "mochiyBold",
+                marginHorizontal: 10,
+                marginVertical: 5,
+                flex: 1,
+                textDecorationLine: item?.completed ? "line-through" : "none",
+              }}
+            >
+              {item.task}
+            </Text>
+            <MaterialIcons
+              name="delete"
+              style={styles.flatListDelete}
+              size={25}
+              onPress={() => deleteHandler(item.key)}
+            />
+          </View>
+        </Card>
+      </TouchableOpacity>
+    );
   };
   const renderItemFunction2 = ({ item }) => {
     if (item.completed == false) {
@@ -166,13 +164,9 @@ export default function TaskList() {
           </Modal>
         </View>
         <View style={styles.flatListViewOne}>
-          <Text style={styles.incompleteTaskText}> Completed tasks</Text>
           <FlatList data={tasks} renderItem={renderItemFunction} />
         </View>
-        <View style={styles.flatListViewTwo}>
-          <Text style={styles.incompleteTaskText}> Incomplete tasks </Text>
-          <FlatList data={tasks} renderItem={renderItemFunction2} />
-        </View>
+        <View style={styles.flatListViewTwo}></View>
       </SafeAreaView>
     </ImageBackground>
   );
@@ -187,7 +181,7 @@ const styles = StyleSheet.create({
   },
   innerContainer: {
     marginTop: 72,
-    marginBottom: 100,
+    marginBottom: 120,
   },
   //flatlist view
   flatListDelete: {
@@ -200,18 +194,9 @@ const styles = StyleSheet.create({
     borderRadius: 30,
     borderColor: "#d42efa",
     backgroundColor: "#f00",
+    opacity: 0.6,
   },
-  flatListComplete: {
-    padding: 5,
-    paddingLeft: 7,
-    alignSelf: "center",
-    justifyContent: "center",
-    alignItems: "center",
-    borderWidth: 2,
-    borderRadius: 30,
-    borderColor: "#d42efa",
-    backgroundColor: "#0db1e3",
-  },
+
   taskText: {
     fontFamily: "mochiyBold",
     marginHorizontal: 10,
@@ -240,12 +225,7 @@ const styles = StyleSheet.create({
     padding: 10,
     borderRadius: 10,
     alignSelf: "center",
-    opacity: 0.9,
-  },
-  incompleteTaskText: {
-    fontFamily: "dongleBold",
-    fontSize: 24,
-    color: "#fff",
+    opacity: 0.7,
   },
   flatListViewOne: {
     flex: 0.5,

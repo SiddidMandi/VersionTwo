@@ -181,7 +181,7 @@ const styles = StyleSheet.create({
   },
   innerContainer: {
     marginTop: 100,
-    marginBottom: 100,
+    marginBottom: 120,
   },
   dateText: {
     fontFamily: "mochiyBold",
@@ -223,7 +223,7 @@ const styles = StyleSheet.create({
     padding: 10,
     borderRadius: 10,
     alignSelf: "center",
-    opacity: 0.9,
+    opacity: 0.7,
   },
   //etry modal
   entryTitleText: {

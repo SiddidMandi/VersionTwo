@@ -171,7 +171,7 @@ const styles = StyleSheet.create({
   },
   innerContainer: {
     marginTop: 72,
-    marginBottom: 100,
+    marginBottom: 120,
   },
   moddalView: {
     backgroundColor: "#000",
@@ -206,7 +206,7 @@ const styles = StyleSheet.create({
     padding: 10,
     borderRadius: 10,
     alignSelf: "center",
-    opacity: 0.9,
+    opacity: 0.7,
   },
   buttonsContainer: {
     flexDirection: "row",
@@ -228,5 +228,6 @@ const styles = StyleSheet.create({
     borderRadius: 30,
     borderColor: "#d42efa",
     backgroundColor: "#f00",
+    opacity: 0.6,
   },
 });
