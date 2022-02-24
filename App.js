@@ -58,4 +58,6 @@ navigation:
   storage: @react-native-async-storage/async-storage
 
   icons: @expo/vector-icons
+
+  splash writing color: f0c8d0
 */
