@@ -58,4 +58,8 @@ navigation:
   storage: @react-native-async-storage/async-storage
 
   icons: @expo/vector-icons
-*/
+
+git notes:
+  on a non main branch, use
+  git push origin HEAD
+  */
