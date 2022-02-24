@@ -94,6 +94,7 @@ export default function TaskList() {
                   marginVertical: 5,
                   flex: 1,
                   textDecorationLine: item?.completed ? "line-through" : "none",
+                  opacity: item?.completed ? 0.5 : 1,
                 }}
               >
                 {item.task}
