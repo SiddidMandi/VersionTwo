@@ -107,35 +107,6 @@ export default function TaskList() {
       </TouchableOpacity>
     );
   };
-  const renderItemFunction2 = ({ item }) => {
-    if (item.completed == false) {
-      return (
-        <TouchableOpacity onPress={() => markTaskComplete(item.key)}>
-          <Card>
-            <View style={styles.taskTextView}>
-              <Text
-                style={{
-                  fontFamily: "mochiyBold",
-                  marginHorizontal: 10,
-                  marginVertical: 5,
-                  flex: 1,
-                  textDecorationLine: item?.completed ? "line-through" : "none",
-                }}
-              >
-                {item.task}
-              </Text>
-              <MaterialIcons
-                name="delete"
-                style={styles.flatListDelete}
-                size={25}
-                onPress={() => deleteHandler(item.key)}
-              />
-            </View>
-          </Card>
-        </TouchableOpacity>
-      );
-    }
-  };
 
   return (
     <ImageBackground
@@ -228,9 +199,6 @@ const styles = StyleSheet.create({
     opacity: 0.7,
   },
   flatListViewOne: {
-    flex: 0.5,
-  },
-  flatListViewTwo: {
-    flex: 0.5,
+    flex: 1,
   },
 });
