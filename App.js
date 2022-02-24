@@ -62,4 +62,5 @@ navigation:
 git notes:
   on a non main branch, use
   git push origin HEAD
+  checkout plz
   */

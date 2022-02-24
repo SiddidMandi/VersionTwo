@@ -1,8 +1,8 @@
 {
   "expo": {
-    "name": "VersionTwo",
-    "slug": "VersionTwo",
-    "version": "1.0.0",
+    "name": "MultiTracker",
+    "slug": "MultiTracker",
+    "version": "2.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "splash": {
@@ -13,13 +13,12 @@
     "updates": {
       "fallbackToCacheTimeout": 0
     },
-    "assetBundlePatterns": [
-      "**/*"
-    ],
+    "assetBundlePatterns": ["**/*"],
     "ios": {
       "supportsTablet": true
     },
     "android": {
+      "package": "siddidURapp.org",
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#FFFFFF"

@@ -20,7 +20,7 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.8,
     marginHorizontal: 5,
     marginVertical: 5,
-    opacity: 0.9,
+    opacity: 1,
     alignItems: "center",
     justifyContent: "center",
   },
