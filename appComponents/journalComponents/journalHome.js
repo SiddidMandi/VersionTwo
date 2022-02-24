@@ -204,6 +204,7 @@ const styles = StyleSheet.create({
     borderRadius: 30,
     borderColor: "#d42efa",
     backgroundColor: "#f00",
+    opacity: 0.6,
   },
   //buttons
   buttonContainer: {
