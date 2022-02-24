@@ -21,6 +21,7 @@ import DayAdder from "./dayAdder";
 import Card from "../../newassets/cards/card";
 import MiniCard from "../../newassets/cards/miniCard";
 import FlatButton from "../../newassets/cards/button";
+import * as Animatable from "react-native-animatable";
 
 export default function Habits() {
   const saveDays = async (days) => {
@@ -124,37 +125,43 @@ export default function Habits() {
         </Modal>
         <FlatList
           data={days}
-          renderItem={({ item }) => (
-            <View style={styles.cardContainer}>
-              <Card>
-                <View style={styles.dateContainer}>
-                  <Text style={styles.dateText}>{item.date}</Text>
-                  <MaterialIcons
-                    name="delete"
-                    onPress={() => deleteHandler(item.key)}
-                    size={20}
-                    style={styles.flatlistDelete}
-                  />
-                </View>
-                <View style={styles.miniCardView}>
-                  <MiniCard>
-                    <Text style={styles.habitText}>{item.habit1}</Text>
-                  </MiniCard>
-                  <MiniCard>
-                    <Text style={styles.habitText}> {item.habit2}</Text>
-                  </MiniCard>
-                  <MiniCard>
-                    <Text style={styles.habitText}> {item.habit3}</Text>
-                  </MiniCard>
-                  <MiniCard>
-                    <Text style={styles.habitText}> {item.habit4}</Text>
-                  </MiniCard>
-                  <MiniCard>
-                    <Text style={styles.habitText}> {item.habit5}</Text>
-                  </MiniCard>
-                </View>
-              </Card>
-            </View>
+          renderItem={({ item, index }) => (
+            <Animatable.View
+              animation="fadeInUp"
+              duration={1000}
+              delay={index * 300}
+            >
+              <View style={styles.cardContainer}>
+                <Card>
+                  <View style={styles.dateContainer}>
+                    <Text style={styles.dateText}>{item.date}</Text>
+                    <MaterialIcons
+                      name="delete"
+                      onPress={() => deleteHandler(item.key)}
+                      size={20}
+                      style={styles.flatlistDelete}
+                    />
+                  </View>
+                  <View style={styles.miniCardView}>
+                    <MiniCard>
+                      <Text style={styles.habitText}>{item.habit1}</Text>
+                    </MiniCard>
+                    <MiniCard>
+                      <Text style={styles.habitText}> {item.habit2}</Text>
+                    </MiniCard>
+                    <MiniCard>
+                      <Text style={styles.habitText}> {item.habit3}</Text>
+                    </MiniCard>
+                    <MiniCard>
+                      <Text style={styles.habitText}> {item.habit4}</Text>
+                    </MiniCard>
+                    <MiniCard>
+                      <Text style={styles.habitText}> {item.habit5}</Text>
+                    </MiniCard>
+                  </View>
+                </Card>
+              </View>
+            </Animatable.View>
           )}
         />
       </SafeAreaView>

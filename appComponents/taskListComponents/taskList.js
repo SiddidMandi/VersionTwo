@@ -20,6 +20,7 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import Card from "../../newassets/cards/card";
 import AddTask from "./taskAdder";
 import FlatButton from "../../newassets/cards/button";
+import * as Animatable from "react-native-animatable";
 
 export default function TaskList() {
   const saveTasks = async (tasks) => {
@@ -80,31 +81,33 @@ export default function TaskList() {
     setTasks(newTasks);
   };
 
-  const renderItemFunction = ({ item }) => {
+  const renderItemFunction = ({ item, index }) => {
     return (
-      <TouchableOpacity onPress={() => markTaskComplete(item.key)}>
-        <Card>
-          <View style={styles.taskTextView}>
-            <Text
-              style={{
-                fontFamily: "mochiyBold",
-                marginHorizontal: 10,
-                marginVertical: 5,
-                flex: 1,
-                textDecorationLine: item?.completed ? "line-through" : "none",
-              }}
-            >
-              {item.task}
-            </Text>
-            <MaterialIcons
-              name="delete"
-              style={styles.flatListDelete}
-              size={25}
-              onPress={() => deleteHandler(item.key)}
-            />
-          </View>
-        </Card>
-      </TouchableOpacity>
+      <Animatable.View animation="fadeInUp" duration={1000} delay={index * 300}>
+        <TouchableOpacity onPress={() => markTaskComplete(item.key)}>
+          <Card>
+            <View style={styles.taskTextView}>
+              <Text
+                style={{
+                  fontFamily: "mochiyBold",
+                  marginHorizontal: 10,
+                  marginVertical: 5,
+                  flex: 1,
+                  textDecorationLine: item?.completed ? "line-through" : "none",
+                }}
+              >
+                {item.task}
+              </Text>
+              <MaterialIcons
+                name="delete"
+                style={styles.flatListDelete}
+                size={25}
+                onPress={() => deleteHandler(item.key)}
+              />
+            </View>
+          </Card>
+        </TouchableOpacity>
+      </Animatable.View>
     );
   };
 

@@ -59,5 +59,6 @@ navigation:
 
   icons: @expo/vector-icons
 
+  icon: 1024x1024
   splash writing color: f0c8d0
 */

@@ -21,6 +21,7 @@ import Card from "../../newassets/cards/card";
 import EntryCard from "../../newassets/cards/entryCard";
 import FlatButton from "../../newassets/cards/button";
 import AddEntry from "./adder";
+import * as Animatable from "react-native-animatable";
 
 export default function JournalHome() {
   const saveJournal = async (journal) => {
@@ -69,19 +70,21 @@ export default function JournalHome() {
   };
   const renderItemFunction = ({ item, index }) => {
     return (
-      <TouchableOpacity onPress={() => onPressFunction(item)}>
-        <Card>
-          <View style={styles.dateTextView}>
-            <Text style={styles.dateText}> {item.date} </Text>
-            <MaterialIcons
-              name="delete"
-              style={styles.flatListDelete}
-              size={25}
-              onPress={() => deleteHandler(item.key)}
-            />
-          </View>
-        </Card>
-      </TouchableOpacity>
+      <Animatable.View animation="fadeInUp" duration={1000} delay={index * 300}>
+        <TouchableOpacity onPress={() => onPressFunction(item)}>
+          <Card>
+            <View style={styles.dateTextView}>
+              <Text style={styles.dateText}> {item.date} </Text>
+              <MaterialIcons
+                name="delete"
+                style={styles.flatListDelete}
+                size={25}
+                onPress={() => deleteHandler(item.key)}
+              />
+            </View>
+          </Card>
+        </TouchableOpacity>
+      </Animatable.View>
     );
   };
   const handleEditItem = (editItem) => {
