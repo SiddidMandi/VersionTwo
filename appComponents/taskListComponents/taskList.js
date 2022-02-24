@@ -21,6 +21,8 @@ import Card from "../../newassets/cards/card";
 import AddTask from "./taskAdder";
 import FlatButton from "../../newassets/cards/button";
 
+//reanimated added
+
 export default function TaskList() {
   const saveTasks = async (tasks) => {
     try {
