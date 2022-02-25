@@ -41,11 +41,7 @@ export default function TaskList() {
       console.log(e);
     }
   };
-  const [tasks, setTasks] = useState([
-    { task: "task one", completed: false, key: "69" },
-    { task: "task two", completed: true, key: "62" },
-    { task: "task three", completed: true, key: "64" },
-  ]);
+  const [tasks, setTasks] = useState([]);
   useEffect(() => {
     receiveTasks();
   }, []);
