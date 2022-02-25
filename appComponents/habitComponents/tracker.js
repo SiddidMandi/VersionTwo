@@ -42,35 +42,7 @@ export default function Habits() {
       console.log(e);
     }
   };
-  const [days, setDays] = useState([
-    {
-      date: "69-Dec22",
-      habit1: "habit",
-      habit2: "add habit2",
-      habit3: "add habit3",
-      habit4: "add habit4",
-      habit5: "add habit5",
-      key: "1",
-    },
-    {
-      date: "date",
-      habit1: "add habit",
-      habit2: "add habit2",
-      habit3: "add habit3",
-      habit4: "add habit4",
-      habit5: "add habit5",
-      key: "2",
-    },
-    {
-      date: "date",
-      habit1: "add habit",
-      habit2: "add habit2",
-      habit3: "add habit3",
-      habit4: "add habit4",
-      habit5: "add habit5",
-      key: "3",
-    },
-  ]);
+  const [days, setDays] = useState([]);
   useEffect(() => {
     receiveDays();
   }, []);

@@ -43,10 +43,7 @@ export default function JournalHome() {
     }
   };
 
-  const [journal, setJournal] = useState([
-    { key: "1", date: "1", entry: "1" },
-    { key: "2", date: "1", entry: "1" },
-  ]);
+  const [journal, setJournal] = useState([]);
   useEffect(() => {
     receiveJournal();
   }, []);

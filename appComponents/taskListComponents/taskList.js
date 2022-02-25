@@ -137,7 +137,6 @@ export default function TaskList() {
         <View style={styles.flatListViewOne}>
           <FlatList data={tasks} renderItem={renderItemFunction} />
         </View>
-        <View style={styles.flatListViewTwo}></View>
       </SafeAreaView>
     </ImageBackground>
   );
