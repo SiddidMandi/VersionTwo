@@ -4,12 +4,9 @@ import {
   FlatList,
   View,
   StyleSheet,
-  Button,
   Modal,
   ImageBackground,
-  Animated,
   TouchableOpacity,
-  StatusBar,
   Alert,
 } from "react-native";
 import { MaterialIcons } from "@expo/vector-icons";
@@ -20,6 +17,7 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import Card from "../../newassets/cards/card";
 import AddTask from "./taskAdder";
 import FlatButton from "../../newassets/cards/button";
+import * as Animatable from "react-native-animatable";
 
 export default function TaskList() {
   const saveTasks = async (tasks) => {
@@ -40,11 +38,7 @@ export default function TaskList() {
       console.log(e);
     }
   };
-  const [tasks, setTasks] = useState([
-    { task: "task one", completed: false, key: "69" },
-    { task: "task two", completed: true, key: "62" },
-    { task: "task three", completed: true, key: "64" },
-  ]);
+  const [tasks, setTasks] = useState([]);
   useEffect(() => {
     receiveTasks();
   }, []);
@@ -80,9 +74,9 @@ export default function TaskList() {
     setTasks(newTasks);
   };
 
-  const renderItemFunction = ({ item }) => {
-    if (item.completed == true) {
-      return (
+  const renderItemFunction = ({ item, index }) => {
+    return (
+      <Animatable.View animation="fadeInUp" duration={1000} delay={index * 300}>
         <TouchableOpacity onPress={() => markTaskComplete(item.key)}>
           <Card>
             <View style={styles.taskTextView}>
@@ -93,6 +87,7 @@ export default function TaskList() {
                   marginVertical: 5,
                   flex: 1,
                   textDecorationLine: item?.completed ? "line-through" : "none",
+                  opacity: item?.completed ? 0.5 : 1,
                 }}
               >
                 {item.task}
@@ -106,37 +101,8 @@ export default function TaskList() {
             </View>
           </Card>
         </TouchableOpacity>
-      );
-    }
-  };
-  const renderItemFunction2 = ({ item }) => {
-    if (item.completed == false) {
-      return (
-        <TouchableOpacity onPress={() => markTaskComplete(item.key)}>
-          <Card>
-            <View style={styles.taskTextView}>
-              <Text
-                style={{
-                  fontFamily: "mochiyBold",
-                  marginHorizontal: 10,
-                  marginVertical: 5,
-                  flex: 1,
-                  textDecorationLine: item?.completed ? "line-through" : "none",
-                }}
-              >
-                {item.task}
-              </Text>
-              <MaterialIcons
-                name="delete"
-                style={styles.flatListDelete}
-                size={25}
-                onPress={() => deleteHandler(item.key)}
-              />
-            </View>
-          </Card>
-        </TouchableOpacity>
-      );
-    }
+      </Animatable.View>
+    );
   };
 
   return (
@@ -166,19 +132,13 @@ export default function TaskList() {
           </Modal>
         </View>
         <View style={styles.flatListViewOne}>
-          <Text style={styles.incompleteTaskText}> Completed tasks</Text>
           <FlatList data={tasks} renderItem={renderItemFunction} />
-        </View>
-        <View style={styles.flatListViewTwo}>
-          <Text style={styles.incompleteTaskText}> Incomplete tasks </Text>
-          <FlatList data={tasks} renderItem={renderItemFunction2} />
         </View>
       </SafeAreaView>
     </ImageBackground>
   );
 }
 
-//buttons opacity .7, flatlist delete opacity 0.6
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -188,7 +148,7 @@ const styles = StyleSheet.create({
   },
   innerContainer: {
     marginTop: 72,
-    marginBottom: 100,
+    marginBottom: 120,
   },
   //flatlist view
   flatListDelete: {
@@ -199,20 +159,11 @@ const styles = StyleSheet.create({
     alignItems: "center",
     borderWidth: 2,
     borderRadius: 30,
+    borderColor: "#d42efa",
     backgroundColor: "#f00",
     opacity: 0.6,
   },
-  flatListComplete: {
-    padding: 5,
-    paddingLeft: 7,
-    alignSelf: "center",
-    justifyContent: "center",
-    alignItems: "center",
-    borderWidth: 2,
-    borderRadius: 30,
-    borderColor: "#d42efa",
-    backgroundColor: "#0db1e3",
-  },
+
   taskText: {
     fontFamily: "mochiyBold",
     marginHorizontal: 10,
@@ -243,15 +194,7 @@ const styles = StyleSheet.create({
     alignSelf: "center",
     opacity: 0.7,
   },
-  incompleteTaskText: {
-    fontFamily: "dongleBold",
-    fontSize: 24,
-    color: "#fff",
-  },
   flatListViewOne: {
-    flex: 0.5,
-  },
-  flatListViewTwo: {
-    flex: 0.5,
+    flex: 1,
   },
 });
