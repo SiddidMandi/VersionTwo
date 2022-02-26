@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import {
   View,
   StyleSheet,
@@ -11,11 +11,20 @@ import {
 
 export default function TimerClock({ minutes = 20 }) {
   const secondsToMillis = (sec) => sec * 1000;
-  const [rest, setRest] = useState();
-  const [work, setWork] = useState();
+  const [rest, setRest] = useState(secondsToMillis(2));
+  const [work, setWork] = useState(secondsToMillis(3));
   const [sessions, setSessions] = useState();
 
-  return <View></View>;
+  useEffect(() => {
+    interval.current = setInterval(setRest(rest - 1000), 1000);
+  });
+  return (
+    <View>
+      <Text>{rest}</Text>
+    </View>
+  );
 }
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+  timeText: {},
+});
