@@ -9,7 +9,7 @@ import {
   ImageBackground,
 } from "react-native";
 
-export default function TimerClock({ minutes = 20 }) {
+export default function TimerClock({ minutes = 20, isPaused = true }) {
   const secondsToMillis = (sec) => sec * 1000;
   const [rest, setRest] = useState(secondsToMillis(2));
   const [work, setWork] = useState(secondsToMillis(3));
@@ -18,6 +18,7 @@ export default function TimerClock({ minutes = 20 }) {
   useEffect(() => {
     interval.current = setInterval(setRest(rest - 1000), 1000);
   });
+  const seconds = Math.floor(rest / 1000);
   return (
     <View>
       <Text>{rest}</Text>
