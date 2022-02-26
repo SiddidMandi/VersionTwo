@@ -4,13 +4,9 @@ import {
   FlatList,
   View,
   StyleSheet,
-  Button,
   Modal,
   ImageBackground,
   Alert,
-  Animated,
-  TouchableOpacity,
-  StatusBar,
 } from "react-native";
 import { MaterialIcons } from "@expo/vector-icons";
 import uuid from "react-native-uuid";

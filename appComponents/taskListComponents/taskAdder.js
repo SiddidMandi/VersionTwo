@@ -1,4 +1,4 @@
-import { StyleSheet, Button, TextInput, Text, View } from "react-native";
+import { StyleSheet, TextInput, View } from "react-native";
 import { Formik } from "formik";
 import FlatButton from "../../newassets/cards/button";
 
