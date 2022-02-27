@@ -152,9 +152,11 @@ export default function JournalHome() {
             <FlatButton text="close" onPress={() => setModalOpen(false)} />
           </EntryCard>
         </Modal>
-        <Modal transparent visible={modalOpen2}>
+        <Modal transparent visible={modalOpen2} animationType="slide">
           <View style={{ marginTop: 200 }}>
-            <AddEntry addEntry={addEntry} />
+            <ScrollView>
+              <AddEntry addEntry={addEntry} />
+            </ScrollView>
             <FlatButton text="close" onPress={() => setModalOpen2(false)} />
           </View>
         </Modal>

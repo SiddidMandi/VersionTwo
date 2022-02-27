@@ -13,6 +13,7 @@ export default function FlatButton({ text, onPress }) {
 
 const styles = StyleSheet.create({
   button: {
+    width: 330,
     marginTop: 5,
     marginHorizontal: 5,
     marginBottom: 5,
