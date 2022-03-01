@@ -61,4 +61,5 @@ navigation:
 
   icon: 1024x1024
   splash writing color: f0c8d0
+  react native deck swiper
 */
