@@ -19,15 +19,13 @@ import { SafeAreaView } from "react-native-safe-area-context";
 //
 import Card from "../../newassets/cards/card";
 import FlatButton from "../../newassets/cards/button";
+import TimerClock from "./timerClock";
 
 export default function Timer() {
   return (
-    <ImageBackground
-      style={styles.container}
-      source={require("../../newassets/images/appBackground.png")}
-    >
-      <SafeAreaView style={styles.innerContainer}></SafeAreaView>
-    </ImageBackground>
+    <SafeAreaView style={styles.innerContainer}>
+      <TimerClock />
+    </SafeAreaView>
   );
 }
 
