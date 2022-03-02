@@ -8,10 +8,12 @@ import {
   StatusBar,
   ImageBackground,
 } from "react-native";
+import FlatButton from "../../newassets/cards/button";
 
 export default function TimerClock({
-  workValue = 10,
-  restValue = 5,
+  workValue,
+  restValue,
+  //session value NOT plural
   sessionValue,
   setTimerShown,
 }) {
@@ -24,6 +26,7 @@ export default function TimerClock({
   const [isRestRunning, setIsRestRunning] = useState(false);
   const [workInterval, setWorkInterval] = useState(null);
   const [restInterval, setRestInterval] = useState(null);
+  //the sessions is plural, but when regarding sessino value/amount, it is singular
   const [sessions, setSessions] = useState(sessionValue - 1); // so it runs excat number of times
 
   // for the custom one with minutes and all, just do some converstions and if statements in the setWorkInterval
@@ -97,8 +100,10 @@ export default function TimerClock({
   const seconds = Math.floor(rest / 1000);
   return (
     <View>
+      <Text> Sessions left: {sessions}</Text>
       <Text>{workTimer}</Text>
       <Text>{restTimer}</Text>
+      <FlatButton onPress={() => setTimerShown(false)} text="cancle" />
     </View>
   );
 }
