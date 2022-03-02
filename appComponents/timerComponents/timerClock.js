@@ -20,8 +20,8 @@ export default function TimerClock({
   const secondsToMillis = (sec) => sec * 1000;
   const [workTimer, setWorkTimer] = useState(workValue);
   const [restTimer, setRestTimer] = useState(restValue);
-  const [rest, setRest] = useState(secondsToMillis(2));
-  const [work, setWork] = useState(12);
+  //const [rest, setRest] = useState(secondsToMillis(2));
+  //const [work, setWork] = useState(12); not needed anymore
   const [isWorkRunning, setIsWorkRunning] = useState(true);
   const [isRestRunning, setIsRestRunning] = useState(false);
   const [workInterval, setWorkInterval] = useState(null);
@@ -97,7 +97,6 @@ export default function TimerClock({
   }, [isRestRunning, restTimer]);
 
   console.log(workTimer, isRestRunning, isWorkRunning, "outside useEffect");
-  const seconds = Math.floor(rest / 1000);
   return (
     <View>
       <Text> Sessions left: {sessions}</Text>

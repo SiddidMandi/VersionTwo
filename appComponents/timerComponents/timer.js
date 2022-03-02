@@ -32,15 +32,37 @@ function TimerDisplay({
   setWorkAmount,
   setSessionAmount,
 }) {
+  const [tempWorkAmountMins, setTempWorkAmountMins] = useState(null);
+  const [tempWorkAmountSecs, setTempWorkAmountSecs] = useState(null);
+  const StartTimerFunction = () => {
+    setTimerShown(true);
+    setWorkAmount(tempWorkAmountMins * 6 + tempWorkAmountSecs);
+  };
   return (
     <View>
       <Text> Timer DIsplay here, plz work</Text>
-      <Text> How many sessions? </Text>
+      <Text> Input number of sessions: </Text>
       <TextInput
         keyboardType="numeric"
         onChangeText={(val) => setSessionAmount(val)}
       />
-      <Button title="start" onPress={() => setTimerShown(true)} />
+      <Text> Input work minutes: </Text>
+      <TextInput
+        keyboardType="numeric"
+        onChangeText={(val) => setTempWorkAmountMins(val)}
+      />
+      <Text> Input work seconds: </Text>
+      <TextInput
+        keyboardType="numeric"
+        onChangeText={(val) => setTempWorkAmountSecs(val)}
+      />
+      <Text> Input rest time: </Text>
+      <TextInput
+        keyboardType="numeric"
+        onChangeText={(val) => setRestAmount(val)}
+      />
+      <FlatButton text="start timer" onPress={() => setTimerShown(true)} />
+      <Button title="start" onPress={() => StartTimerFunction()} />
     </View>
   );
 }
