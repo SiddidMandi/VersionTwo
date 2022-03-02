@@ -24,19 +24,32 @@ import TimerClock from "./timerClock";
 //the user setting the values happens here, pass through the TimerClock component, pass props
 // the user has to press start or something, and input values FIRST before running the <TimerClock/>
 //wrap the returns in an if statement
+
+function TimerDisplay() {
+  return (
+    <View style={styles.container}>
+      <Text> Timer DIsplay here</Text>
+    </View>
+  );
+}
+
 export default function Timer() {
   const [restAmount, setRestAmount] = useState(10);
-  const [timerShown, setTimerShown] = useState(false);
-  return (
-    <SafeAreaView style={styles.innerContainer}>
-      <TimerClock
-        restValue={restAmount}
-        workValue={20}
-        sessionValue={2}
-        setTimerShown={setTimerShown()}
-      />
-    </SafeAreaView>
-  );
+  const [timerShown, setTimerShown] = useState(true);
+  if (timerShown) {
+    return (
+      <SafeAreaView>
+        <TimerClock
+          restValue={restAmount}
+          workValue={20}
+          sessionValue={2}
+          setTimerShown={setTimerShown}
+        />
+      </SafeAreaView>
+    );
+  } else {
+    return <TimerDisplay />;
+  }
 }
 
 const styles = StyleSheet.create({
