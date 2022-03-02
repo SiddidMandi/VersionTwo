@@ -172,9 +172,6 @@ export default function JournalHome() {
   );
 }
 
-/*
-
-*/
 //with transparent header, make an innerContainer and add a marginTop
 
 const styles = StyleSheet.create({
