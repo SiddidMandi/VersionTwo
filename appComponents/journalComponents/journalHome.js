@@ -59,7 +59,7 @@ export default function JournalHome() {
     setInputText(item.entry);
     setEditItem(item.key);
   };
-  const deleteHandler = (key) => {
+  const deleteHandler = (key, item) => {
     setJournal((prevJournal) => {
       return prevJournal.filter((journal) => journal.key != key);
     });
@@ -83,6 +83,7 @@ export default function JournalHome() {
       </Animatable.View>
     );
   };
+
   const handleEditItem = (editItem) => {
     const newJournal = journal.map((item) => {
       if (item.key == editItem) {
@@ -171,6 +172,9 @@ export default function JournalHome() {
   );
 }
 
+/*
+
+*/
 //with transparent header, make an innerContainer and add a marginTop
 
 const styles = StyleSheet.create({
