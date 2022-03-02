@@ -21,10 +21,20 @@ import Card from "../../newassets/cards/card";
 import FlatButton from "../../newassets/cards/button";
 import TimerClock from "./timerClock";
 
+//the user setting the values happens here, pass through the TimerClock component, pass props
+// the user has to press start or something, and input values FIRST before running the <TimerClock/>
+//wrap the returns in an if statement
 export default function Timer() {
+  const [restAmount, setRestAmount] = useState(10);
+  const [timerShown, setTimerShown] = useState(false);
   return (
     <SafeAreaView style={styles.innerContainer}>
-      <TimerClock />
+      <TimerClock
+        restValue={restAmount}
+        workValue={20}
+        sessionValue={2}
+        setTimerShown={setTimerShown()}
+      />
     </SafeAreaView>
   );
 }
