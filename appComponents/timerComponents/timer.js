@@ -32,36 +32,55 @@ function TimerDisplay({
   setWorkAmount,
   setSessionAmount,
 }) {
-  const [tempWorkAmountMins, setTempWorkAmountMins] = useState(null);
-  const [tempWorkAmountSecs, setTempWorkAmountSecs] = useState(null);
+  const [tempWorkAmountMins, setTempWorkAmountMins] = useState(1);
+  const [tempWorkAmountSecs, setTempWorkAmountSecs] = useState(0);
+  const [tempRestAmountMins, setTempRestAmountMins] = useState(0);
+  const [tempRestAmountSecs, setTempRestAmountSecs] = useState(0);
   const StartTimerFunction = () => {
     setTimerShown(true);
-    setWorkAmount(tempWorkAmountMins * 6 + tempWorkAmountSecs);
+    setWorkAmount(Math.floor(tempWorkAmountMins * 6 + tempWorkAmountSecs)); //it works on place value? tens place is minutes, ones place is seconds?
+    setRestAmount(Math.floor(tempRestAmountMins * 6 + tempRestAmountSecs));
   };
   return (
     <View>
-      <Text> Timer DIsplay here, plz work</Text>
-      <Text> Input number of sessions: </Text>
-      <TextInput
-        keyboardType="numeric"
-        onChangeText={(val) => setSessionAmount(val)}
-      />
-      <Text> Input work minutes: </Text>
-      <TextInput
-        keyboardType="numeric"
-        onChangeText={(val) => setTempWorkAmountMins(val)}
-      />
-      <Text> Input work seconds: </Text>
-      <TextInput
-        keyboardType="numeric"
-        onChangeText={(val) => setTempWorkAmountSecs(val)}
-      />
-      <Text> Input rest time: </Text>
-      <TextInput
-        keyboardType="numeric"
-        onChangeText={(val) => setRestAmount(val)}
-      />
-      <FlatButton text="start timer" onPress={() => setTimerShown(true)} />
+      <Text> Timer Display here, plz work</Text>
+      <View style={styles.workTimeContainer}>
+        <Text style={styles.timeText}> Sessions: </Text>
+        <TextInput
+          keyboardType="numeric"
+          onChangeText={(val) => setSessionAmount(val)}
+          style={styles.timeInput}
+        />
+      </View>
+      <View style={styles.workTimeContainer}>
+        <Text style={styles.timeText}>Work time: </Text>
+        <TextInput
+          keyboardType="numeric"
+          onChangeText={(val) => setTempWorkAmountMins(val)}
+          style={styles.timeInput}
+        />
+        <Text style={styles.timeText}> : </Text>
+        <TextInput
+          keyboardType="numeric"
+          onChangeText={(val) => setTempWorkAmountSecs(val)}
+          style={styles.timeInput}
+        />
+      </View>
+      <View style={styles.workTimeContainer}>
+        <Text style={styles.timeText}> Rest time: </Text>
+        <TextInput
+          keyboardType="numeric"
+          onChangeText={(val) => setTempRestAmountMins(val)}
+          style={styles.timeInput}
+        />
+        <Text style={styles.timeText}> : </Text>
+        <TextInput
+          keyboardType="numeric"
+          onChangeText={(val) => setTempRestAmountSecs(val)}
+          style={styles.timeInput}
+        />
+      </View>
+      <FlatButton text="start timer" onPress={() => StartTimerFunction()} />
       <Button title="start" onPress={() => StartTimerFunction()} />
     </View>
   );
@@ -108,5 +127,26 @@ const styles = StyleSheet.create({
   innerContainer: {
     marginTop: 172,
     marginBottom: 100,
+  },
+  workTimeContainer: {
+    flexDirection: "row",
+    alignContent: "center",
+    justifyContent: "center",
+    alignItems: "center",
+    margin: 3,
+  },
+  timeText: {
+    fontFamily: "dongleBold",
+    fontSize: 30,
+    //color: "#bcd9f5" uncomment when background is added
+  },
+  //number textInput style
+  timeInput: {
+    width: 30,
+    fontSize: 16,
+    borderWidth: 2,
+    borderRadius: 10,
+    //borderColor: "#bcd9f5", uncomment when background is added
+    padding: 3,
   },
 });

@@ -17,16 +17,16 @@ export default function TimerClock({
   sessionValue,
   setTimerShown,
 }) {
-  const secondsToMillis = (sec) => sec * 1000;
+  //const secondsToMillis = (sec) => sec * 1000;          useless
   const [workTimer, setWorkTimer] = useState(workValue);
   const [restTimer, setRestTimer] = useState(restValue);
-  //const [rest, setRest] = useState(secondsToMillis(2));
-  //const [work, setWork] = useState(12); not needed anymore
+  //const [rest, setRest] = useState(secondsToMillis(2)); useless
+  //const [work, setWork] = useState(12);                 useless
   const [isWorkRunning, setIsWorkRunning] = useState(true);
   const [isRestRunning, setIsRestRunning] = useState(false);
   const [workInterval, setWorkInterval] = useState(null);
   const [restInterval, setRestInterval] = useState(null);
-  //the sessions is plural, but when regarding sessino value/amount, it is singular
+  //the sessions is plural, but when regarding session value/amount, it is singular
   const [sessions, setSessions] = useState(sessionValue - 1); // so it runs excat number of times
 
   // for the custom one with minutes and all, just do some converstions and if statements in the setWorkInterval
@@ -35,12 +35,15 @@ export default function TimerClock({
     //   interval.current = setInterval(setRest(rest - 1000), 1000);
     if (isWorkRunning) {
       // 20, the default value of the workTimer
+      const Minutes = Math.floor((workTimer - (workTimer % 60)) / 60);
       setWorkInterval(
         setInterval(() => {
           setWorkTimer((current) => {
-            /*  if (current >= 60) {
-          return current / 60;
-        } */
+            //watch out for this if statement, to comment multiple lines highlihgt in vim and use ctrl alt A
+            if (current >= 60) {
+              console.log("minutes of workkk");
+              return Minutes;
+            }
             return current - 1; //if it is more than 60 it is being converted to a minute, or it is just a second
           });
         }, 1000)
@@ -53,8 +56,6 @@ export default function TimerClock({
       clearInterval(workInterval); //clears interval
       setIsRestRunning(true);
     }
-    /*
-     */
 
     /*if (sessions !== 0) {
       setSessions((current) => current - 1); //session value reducing by 1 if it isn't 0
@@ -70,14 +71,23 @@ export default function TimerClock({
       setRestInterval(
         setInterval(() => {
           setRestTimer((current) => {
-            /*  if (current >= 60) {
-          return current / 60;
-        } */
+            //watch out for this if statement
+            /*   if (current >= 60) {
+              console.log("minute if statement");
+              return (
+                <View>
+                  <Text>
+                    {current % 60}:{current - 1}
+                  </Text>
+                </View>
+              );
+            } */
             return current - 1; //if it is more than 60 it is being converted to a minute, or it is just a second
           });
-        }, 1000)
+        }, 1000) //the 1000 here is miliseconds and is the tick rate
       );
       setIsRestRunning(false);
+      console.log(workValue);
     }
     if (restTimer === 0 && isWorkRunning === false) {
       console.log("rest? ");
