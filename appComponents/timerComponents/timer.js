@@ -38,8 +38,13 @@ function TimerDisplay({
   const [tempRestAmountSecs, setTempRestAmountSecs] = useState(0);
   const StartTimerFunction = () => {
     setTimerShown(true);
-    setWorkAmount(Math.floor(tempWorkAmountMins * 6 + tempWorkAmountSecs)); //it works on place value? tens place is minutes, ones place is seconds?
-    setRestAmount(Math.floor(tempRestAmountMins * 6 + tempRestAmountSecs));
+    var wmins = tempWorkAmountMins;
+    var wsecs = tempWorkAmountSecs;
+    var totalworktime = parseInt(wmins) * 60 + parseInt(wsecs);
+    setWorkAmount(parseInt(totalworktime)); //it works on place value? tens place is minutes, ones place is seconds?
+    setRestAmount(
+      parseInt(parseInt(tempRestAmountMins) * 60 + parseInt(tempRestAmountSecs))
+    );
   };
   return (
     <View>
@@ -81,7 +86,6 @@ function TimerDisplay({
         />
       </View>
       <FlatButton text="start timer" onPress={() => StartTimerFunction()} />
-      <Button title="start" onPress={() => StartTimerFunction()} />
     </View>
   );
 }

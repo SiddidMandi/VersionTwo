@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, Children } from "react";
 import {
   View,
   StyleSheet,
@@ -31,19 +31,11 @@ export default function TimerClock({
 
   // for the custom one with minutes and all, just do some converstions and if statements in the setWorkInterval
   useEffect(() => {
-    console.log(workTimer, isRestRunning);
-    //   interval.current = setInterval(setRest(rest - 1000), 1000);
+    console.log("work amount in seconds: ", workTimer);
     if (isWorkRunning) {
-      // 20, the default value of the workTimer
-      const Minutes = Math.floor((workTimer - (workTimer % 60)) / 60);
       setWorkInterval(
         setInterval(() => {
           setWorkTimer((current) => {
-            //watch out for this if statement, to comment multiple lines highlihgt in vim and use ctrl alt A
-            if (current >= 60) {
-              console.log("minutes of workkk");
-              return Minutes;
-            }
             return current - 1; //if it is more than 60 it is being converted to a minute, or it is just a second
           });
         }, 1000)
@@ -51,46 +43,23 @@ export default function TimerClock({
       setIsWorkRunning(false);
     }
     if (workTimer === 0 && isRestRunning === false) {
-      console.log("work? ");
-      //   setIsWorkRunning(false); // u cant do this
       clearInterval(workInterval); //clears interval
+      // add end of work alert here
       setIsRestRunning(true);
     }
-
-    /*if (sessions !== 0) {
-      setSessions((current) => current - 1); //session value reducing by 1 if it isn't 0
-    } */
-    /* return () => {
-      clearInterval(workInterval); //clean up proces of the useEffect, so the old timer won't exist in the app
-    }; */
   }, [isWorkRunning, workTimer]); // workRunning will run work clock, if false useEffect runs but with the rest timer
   useEffect(() => {
-    console.log(isRestRunning);
     if (isRestRunning) {
-      console.log("rest working?");
       setRestInterval(
         setInterval(() => {
           setRestTimer((current) => {
-            //watch out for this if statement
-            /*   if (current >= 60) {
-              console.log("minute if statement");
-              return (
-                <View>
-                  <Text>
-                    {current % 60}:{current - 1}
-                  </Text>
-                </View>
-              );
-            } */
-            return current - 1; //if it is more than 60 it is being converted to a minute, or it is just a second
+            return current - 1;
           });
         }, 1000) //the 1000 here is miliseconds and is the tick rate
       );
       setIsRestRunning(false);
-      console.log(workValue);
     }
     if (restTimer === 0 && isWorkRunning === false) {
-      console.log("rest? ");
       //   setIsWorkRunning(false); // u cant do this
       clearInterval(restInterval); //clears interval
       if (sessions !== 0) {
@@ -98,6 +67,7 @@ export default function TimerClock({
         setIsWorkRunning(true);
         setWorkTimer(workValue);
         setRestTimer(restValue);
+        //add end rest alert here
       }
       if (sessions === 0) {
         //turn the timershows prop into a useState thing
@@ -105,18 +75,66 @@ export default function TimerClock({
       }
     }
   }, [isRestRunning, restTimer]);
-
-  console.log(workTimer, isRestRunning, isWorkRunning, "outside useEffect");
+  // try the progress bar from the udemy course. react-native-paper
+  const workConvertSecondToMinute = () => {
+    const minutes = Math.floor(parseInt(workTimer) / 60);
+    const seconds = parseInt(workTimer) - parseInt(minutes) * 60;
+    if (seconds < 10) {
+      return `${minutes}:0${seconds}`;
+    } else {
+      return `${minutes}:${seconds}`;
+    }
+  };
+  const restConvertSecondToMinute = () => {
+    const minutes = Math.floor(parseInt(restTimer) / 60);
+    const seconds = parseInt(restTimer) - parseInt(minutes) * 60;
+    if (minutes < 10) {
+      if (seconds < 10) {
+        return `0${minutes}:0${seconds}`;
+      } else {
+        return `0${minutes}:${seconds}`;
+      }
+    } else {
+      if (seconds < 10) {
+        return `${minutes}:0${seconds}`;
+      } else {
+        return `${minutes}:${seconds}`;
+      }
+    }
+  };
+  const terminateTimer = () => {
+    clearInterval(workInterval);
+    clearInterval(restInterval);
+    setTimerShown(false);
+  };
+  //in the return, the things are called workTimer and restTimer
   return (
     <View>
-      <Text> Sessions left: {sessions}</Text>
-      <Text>{workTimer}</Text>
-      <Text>{restTimer}</Text>
-      <FlatButton onPress={() => setTimerShown(false)} text="cancle" />
+      <Text style={styles.sessionText}> Sessions left: {sessions}</Text>
+      <View style={styles.timeContainer}>
+        <Text style={styles.timeText}>{workConvertSecondToMinute()} </Text>
+        <Text style={styles.timeText}>{restConvertSecondToMinute()}</Text>
+      </View>
+      <FlatButton onPress={() => terminateTimer()} text="cancle" />
     </View>
   );
 }
 
 const styles = StyleSheet.create({
-  timeText: {},
+  sessionText: {
+    fontFamily: "dongleBold",
+    fontSize: 60,
+
+    //color: "#bcd9f5" uncomment when background is added
+  },
+  timeContainer: {
+    justifyContent: "center",
+    alignItems: "center",
+    //color: "#bcd9f5" uncomment when background is added
+  },
+  timeText: {
+    fontFamily: "dongleBold",
+    fontSize: 50,
+    //color: "#bcd9f5" uncomment when background is added
+  },
 });
