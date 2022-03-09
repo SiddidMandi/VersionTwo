@@ -16,6 +16,11 @@ import uuid from "react-native-uuid";
 import { MaterialIcons } from "@expo/vector-icons";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { TextInput } from "react-native-gesture-handler";
+import Animated, {
+  SlideInRight,
+  SlideOutRight,
+  Layout,
+} from "react-native-reanimated";
 //
 import Card from "../../newassets/cards/card";
 import EntryCard from "../../newassets/cards/entryCard";
@@ -69,19 +74,26 @@ export default function JournalHome() {
   };
   const renderItemFunction = ({ item, index }) => {
     return (
-      <TouchableOpacity onPress={() => onPressFunction(item)}>
-        <Card>
-          <View style={styles.dateTextView}>
-            <Text style={styles.dateText}> {item.date} </Text>
-            <MaterialIcons
-              name="delete"
-              style={styles.flatListDelete}
-              size={25}
-              onPress={() => deleteHandler(item.key)}
-            />
-          </View>
-        </Card>
-      </TouchableOpacity>
+      <Animated.View
+        entering={SlideInRight.delay(index * 300).duration(300)}
+        exiting={SlideOutRight}
+        layout={Layout.springify()}
+        key={item.key}
+      >
+        <TouchableOpacity onPress={() => onPressFunction(item)}>
+          <Card>
+            <View style={styles.dateTextView}>
+              <Text style={styles.dateText}> {item.date} </Text>
+              <MaterialIcons
+                name="delete"
+                style={styles.flatListDelete}
+                size={25}
+                onPress={() => deleteHandler(item.key)}
+              />
+            </View>
+          </Card>
+        </TouchableOpacity>
+      </Animated.View>
     );
   };
   const handleEditItem = (editItem) => {
@@ -159,29 +171,38 @@ export default function JournalHome() {
             <FlatButton text="close" onPress={() => setModalOpen2(false)} />
           </View>
         </Modal>
-        <FlatList
+        <ScrollView
+          style={styles.scrollView}
+          contentContainerStyle={{ paddingBottom: journal.length ? 60 : 1000 }}
+        >
+          {journal.map((jour, idx) =>
+            renderItemFunction({ item: jour, index: idx })
+          )}
+        </ScrollView>
+      </SafeAreaView>
+    </ImageBackground>
+  );
+}
+// react-native-reanimated added
+/*   <FlatList
           data={journal}
           keyExtractor={(item) => item.key.toString()}
           renderItem={renderItemFunction}
           extraData={isRender}
         />
-      </SafeAreaView>
-    </ImageBackground>
-  );
-}
-
-//with transparent header, make an innerContainer and add a marginTop
+ */ //with transparent header, make an innerContainer and add a marginTop
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: "#fff",
-    alignItems: "center",
-    justifyContent: "center",
+    // alignItems: "center",
+    //justifyContent: "center",
   },
   innerContainer: {
     marginTop: 100,
     marginBottom: 100,
+    flex: 1,
   },
   dateText: {
     fontFamily: "mochiyBold",
@@ -192,6 +213,11 @@ const styles = StyleSheet.create({
   dateTextView: {
     flex: 1,
     flexDirection: "row",
+  },
+  //scroll view style
+  scrollView: {
+    backgroundColor: "#ff0000",
+    flex: 1,
   },
   //flatlistView
   flatListDelete: {

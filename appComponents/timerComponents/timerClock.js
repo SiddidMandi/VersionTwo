@@ -7,7 +7,9 @@ import {
   Text,
   StatusBar,
   ImageBackground,
+  Dimensions,
 } from "react-native";
+import { Vibration } from "react-native-web";
 import FlatButton from "../../newassets/cards/button";
 
 export default function TimerClock({
@@ -58,6 +60,8 @@ export default function TimerClock({
         }, 1000) //the 1000 here is miliseconds and is the tick rate
       );
       setIsRestRunning(false);
+      // add end rest vibration here, add a time value in the brackets
+      Vibration.vibrate(1000);
     }
     if (restTimer === 0 && isWorkRunning === false) {
       //   setIsWorkRunning(false); // u cant do this
@@ -67,7 +71,8 @@ export default function TimerClock({
         setIsWorkRunning(true);
         setWorkTimer(workValue);
         setRestTimer(restValue);
-        //add end rest alert here
+        //add end sessions alert here
+        Vibration.vibrate(3000);
       }
       if (sessions === 0) {
         //turn the timershows prop into a useState thing
@@ -79,12 +84,21 @@ export default function TimerClock({
   const workConvertSecondToMinute = () => {
     const minutes = Math.floor(parseInt(workTimer) / 60);
     const seconds = parseInt(workTimer) - parseInt(minutes) * 60;
-    if (seconds < 10) {
-      return `${minutes}:0${seconds}`;
+    if (minutes < 10) {
+      if (seconds < 10) {
+        return `0${minutes}:0${seconds}`;
+      } else {
+        return `0${minutes}:${seconds}`;
+      }
     } else {
-      return `${minutes}:${seconds}`;
+      if (seconds < 10) {
+        return `${minutes}:0${seconds}`;
+      } else {
+        return `${minutes}:${seconds}`;
+      }
     }
   };
+  // make work the same as rest for the minutes thing
   const restConvertSecondToMinute = () => {
     const minutes = Math.floor(parseInt(restTimer) / 60);
     const seconds = parseInt(restTimer) - parseInt(minutes) * 60;
@@ -107,25 +121,42 @@ export default function TimerClock({
     clearInterval(restInterval);
     setTimerShown(false);
   };
+  console.log("sessionValue here: ", sessionValue);
   //in the return, the things are called workTimer and restTimer
   return (
     <View>
+      <View style={{ flexDirection: "row", backgroundColor: "#00ff00" }}>
+        <View
+          style={[
+            styles.boxesStyle,
+            {
+              width: Dimensions.get("window").width / sessionValue,
+            },
+          ]}
+        ></View>
+      </View>
       <Text style={styles.sessionText}> Sessions left: {sessions}</Text>
       <View style={styles.timeContainer}>
-        <Text style={styles.timeText}>{workConvertSecondToMinute()} </Text>
-        <Text style={styles.timeText}>{restConvertSecondToMinute()}</Text>
+        <Text style={styles.timeText}>Work: {workConvertSecondToMinute()}</Text>
+        <Text style={styles.timeText}>Rest: {restConvertSecondToMinute()}</Text>
       </View>
-      <FlatButton onPress={() => terminateTimer()} text="cancle" />
+      <FlatButton onPress={() => terminateTimer()} text="cancel" />
     </View>
   );
 }
 
+//    width: Dimensions.get("window").width/sessionValue,
 const styles = StyleSheet.create({
   sessionText: {
     fontFamily: "dongleBold",
     fontSize: 60,
 
     //color: "#bcd9f5" uncomment when background is added
+  },
+  boxesStyle: {
+    backgroundColor: "#ff0000",
+    padding: 10,
+    height: 60,
   },
   timeContainer: {
     justifyContent: "center",
