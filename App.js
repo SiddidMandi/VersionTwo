@@ -4,6 +4,8 @@ import { useState } from "react";
 import AppLoading from "expo-app-loading";
 import { MyTabs } from "./appComponents/navigators/tabs";
 
+// android/app/src/main/AndroidManifest.xml for permissions
+
 const getFonts = () => {
   return Font.loadAsync({
     mochiyBold: require("./newassets/fonts/MochiyPopPOne-Regular.ttf"),
