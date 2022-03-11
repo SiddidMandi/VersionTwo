@@ -2,7 +2,6 @@ import {
   StyleSheet,
   Text,
   View,
-  FlatList,
   TouchableOpacity,
   Modal,
   ImageBackground,
@@ -25,7 +24,6 @@ import Card from "../../newassets/cards/card";
 import EntryCard from "../../newassets/cards/entryCard";
 import FlatButton from "../../newassets/cards/button";
 import AddEntry from "./adder";
-import * as Animatable from "react-native-animatable";
 
 export default function JournalHome() {
   const saveJournal = async (journal) => {
