@@ -12,7 +12,7 @@ import {
 } from "react-native";
 import { Vibration } from "react-native-web";
 import FlatButton from "../../newassets/cards/button";
-import * as Animated from "react-native-reanimated";
+import Animated from "react-native-reanimated";
 
 export default function TimerClock({
   workValue,
@@ -149,13 +149,14 @@ export default function TimerClock({
       >
         {listSession}
       </View>
-
       <Text style={styles.sessionText}> Sessions left: {sessions}</Text>
       <View style={styles.timeContainer}>
         <Text style={styles.timeText}>Work: {workConvertSecondToMinute()}</Text>
         <Text style={styles.timeText}>Rest: {restConvertSecondToMinute()}</Text>
       </View>
-
+      <Animated.View>
+        <Text> work </Text>
+      </Animated.View>
       <Button title="vibrate" onPress={() => Vibration.vibrate(1000)} />
       <FlatButton onPress={() => terminateTimer()} text="cancel" />
     </View>
