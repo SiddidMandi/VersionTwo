@@ -8,9 +8,11 @@ import {
   StatusBar,
   ImageBackground,
   Dimensions,
+  Button,
 } from "react-native";
 import { Vibration } from "react-native-web";
 import FlatButton from "../../newassets/cards/button";
+import * as Animated from "react-native-reanimated";
 
 export default function TimerClock({
   workValue,
@@ -122,24 +124,39 @@ export default function TimerClock({
     setTimerShown(false);
   };
   console.log("sessionValue here: ", sessionValue);
+  const listSession = [];
+  //backgroundColor edit for different colors
+  for (let i = 0; i < sessionValue; i++) {
+    listSession.push(
+      <View
+        key={i}
+        style={[
+          styles.boxesStyle,
+          {
+            backgroundColor: i <= sessions - 1 ? "red" : "blue",
+            flex: 1,
+          },
+        ]}
+      ></View>
+    );
+  }
+
   //in the return, the things are called workTimer and restTimer
   return (
     <View>
-      <View style={{ flexDirection: "row", backgroundColor: "#00ff00" }}>
-        <View
-          style={[
-            styles.boxesStyle,
-            {
-              width: Dimensions.get("window").width / sessionValue,
-            },
-          ]}
-        ></View>
+      <View
+        style={{ flexDirection: "row", backgroundColor: "#00ff00", flex: 1 }}
+      >
+        {listSession}
       </View>
+
       <Text style={styles.sessionText}> Sessions left: {sessions}</Text>
       <View style={styles.timeContainer}>
         <Text style={styles.timeText}>Work: {workConvertSecondToMinute()}</Text>
         <Text style={styles.timeText}>Rest: {restConvertSecondToMinute()}</Text>
       </View>
+
+      <Button title="vibrate" onPress={() => Vibration.vibrate(1000)} />
       <FlatButton onPress={() => terminateTimer()} text="cancel" />
     </View>
   );
@@ -150,6 +167,7 @@ const styles = StyleSheet.create({
   sessionText: {
     fontFamily: "dongleBold",
     fontSize: 60,
+    marginTop: 70,
 
     //color: "#bcd9f5" uncomment when background is added
   },
@@ -157,6 +175,7 @@ const styles = StyleSheet.create({
     backgroundColor: "#ff0000",
     padding: 10,
     height: 60,
+    margin: 5,
   },
   timeContainer: {
     justifyContent: "center",

@@ -11,6 +11,7 @@ import {
   TouchableOpacity,
   StatusBar,
   Alert,
+  PermissionsAndroid,
 } from "react-native";
 import { MaterialIcons } from "@expo/vector-icons";
 import uuid from "react-native-uuid";
@@ -21,6 +22,7 @@ import Card from "../../newassets/cards/card";
 import FlatButton from "../../newassets/cards/button";
 import TimerClock from "./timerClock";
 import { TextInput } from "react-native-gesture-handler";
+import { Vibration } from "react-native-web";
 
 //the user setting the values happens here, pass through the TimerClock component, pass props
 // the user has to press start or something, and input values FIRST before running the <TimerClock/>
@@ -32,10 +34,10 @@ function TimerDisplay({
   setWorkAmount,
   setSessionAmount,
 }) {
-  const [tempWorkAmountMins, setTempWorkAmountMins] = useState(1);
-  const [tempWorkAmountSecs, setTempWorkAmountSecs] = useState(0);
+  const [tempWorkAmountMins, setTempWorkAmountMins] = useState(0);
+  const [tempWorkAmountSecs, setTempWorkAmountSecs] = useState(3);
   const [tempRestAmountMins, setTempRestAmountMins] = useState(0);
-  const [tempRestAmountSecs, setTempRestAmountSecs] = useState(0);
+  const [tempRestAmountSecs, setTempRestAmountSecs] = useState(2);
   const StartTimerFunction = () => {
     setTimerShown(true);
     var wmins = tempWorkAmountMins;
@@ -45,6 +47,27 @@ function TimerDisplay({
     setRestAmount(
       parseInt(parseInt(tempRestAmountMins) * 60 + parseInt(tempRestAmountSecs))
     );
+  };
+  const requestVibratePermission = async () => {
+    try {
+      const granted = await PermissionsAndroid.request(
+        PermissionsAndroid.PERMISSIONS.VIBRATE,
+        {
+          title: "Vibrate Permission",
+          message: "Require Vibrate",
+          buttonNeutral: "Ask Me Later",
+          buttonNegative: "Cancel",
+          buttonPositive: "OK",
+        }
+      );
+      if (granted === PermissionsAndroid.RESULTS.GRANTED) {
+        console.log("OK");
+      } else {
+        console.log("Camera permission denied");
+      }
+    } catch (err) {
+      console.warn(err);
+    }
   };
   return (
     <View>
@@ -85,7 +108,13 @@ function TimerDisplay({
           style={styles.timeInput}
         />
       </View>
-      <FlatButton text="start timer" onPress={() => StartTimerFunction()} />
+      <Button title="vibrate" onPress={() => Vibration.vibrate()} />
+
+      <Button
+        title="request permission"
+        onPress={() => requestVibratePermission()}
+      />
+      <FlatButton text="start timer" onPress={() => StartTimerFunction(1000)} />
     </View>
   );
 }
