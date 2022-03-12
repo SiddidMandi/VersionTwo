@@ -57,6 +57,16 @@ navigation:
 
   storage: @react-native-async-storage/async-storage
 
+  react-native-push-notification
+
+  expo-av 
+   const soundSource = require("./examplefile.wav")
+    const playSound = React.useCallback( async() => {
+        const {sound} = await Audio.Sound.createAsync(soundSource);
+        setSound(sound);
+        await.playAsync();
+    }   )
+
   icons: @expo/vector-icons
 
 git notes:

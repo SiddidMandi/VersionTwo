@@ -1,4 +1,4 @@
-import React, { useState, useEffect, Children } from "react";
+import React, { useState, useEffect, Children, useCallback } from "react";
 import {
   View,
   StyleSheet,
@@ -9,8 +9,9 @@ import {
   ImageBackground,
   Dimensions,
   Button,
+  Vibration,
 } from "react-native";
-import { Vibration } from "react-native-web";
+import { Audio } from "expo-av";
 import FlatButton from "../../newassets/cards/button";
 import Animated from "react-native-reanimated";
 
@@ -32,6 +33,15 @@ export default function TimerClock({
   const [restInterval, setRestInterval] = useState(null);
   //the sessions is plural, but when regarding session value/amount, it is singular
   const [sessions, setSessions] = useState(sessionValue - 1); // so it runs excat number of times
+
+  const [sound, setSound] = useState(null);
+  const giveShit = require("../../newassets/sounds/nobodyGivesAShit.mp3");
+
+  const playSound = useCallback(async () => {
+    const { sound } = await Audio.Sound.createAsync(giveShit);
+    setSound(sound);
+    await sound.playAsync();
+  });
 
   // for the custom one with minutes and all, just do some converstions and if statements in the setWorkInterval
   useEffect(() => {
@@ -63,7 +73,9 @@ export default function TimerClock({
       );
       setIsRestRunning(false);
       // add end rest vibration here, add a time value in the brackets
-      Vibration.vibrate(1000);
+      Vibration.vibrate(300);
+      //this sound plays when rest starts
+      playSound();
     }
     if (restTimer === 0 && isWorkRunning === false) {
       //   setIsWorkRunning(false); // u cant do this
@@ -74,7 +86,7 @@ export default function TimerClock({
         setWorkTimer(workValue);
         setRestTimer(restValue);
         //add end sessions alert here
-        Vibration.vibrate(3000);
+        Vibration.vibrate(500);
       }
       if (sessions === 0) {
         //turn the timershows prop into a useState thing
