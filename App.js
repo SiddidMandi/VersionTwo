@@ -59,12 +59,12 @@ navigation:
 
   react-native-push-notification
 
-  expo-av 
+  expo-av (install with expo)
    const soundSource = require("./examplefile.wav")
     const playSound = React.useCallback( async() => {
         const {sound} = await Audio.Sound.createAsync(soundSource);
         setSound(sound);
-        await.playAsync();
+        await sound.playAsync();
     }   )
 
   icons: @expo/vector-icons

@@ -35,10 +35,17 @@ export default function TimerClock({
   const [sessions, setSessions] = useState(sessionValue - 1); // so it runs excat number of times
 
   const [sound, setSound] = useState(null);
-  const giveShit = require("../../newassets/sounds/nobodyGivesAShit.mp3");
+  const relaxSound = require("../../newassets/sounds/relax.mp3");
 
   const playSound = useCallback(async () => {
-    const { sound } = await Audio.Sound.createAsync(giveShit);
+    const { sound } = await Audio.Sound.createAsync(relaxSound);
+    setSound(sound);
+    await sound.playAsync();
+  });
+  const playSoundWork = useCallback(async () => {
+    const { sound } = await Audio.Sound.createAsync(
+      require("../../newassets/sounds/whip.mp3")
+    );
     setSound(sound);
     await sound.playAsync();
   });
@@ -55,6 +62,8 @@ export default function TimerClock({
         }, 1000)
       );
       setIsWorkRunning(false);
+      // I think this plays work sound? lets see
+      playSoundWork();
     }
     if (workTimer === 0 && isRestRunning === false) {
       clearInterval(workInterval); //clears interval
@@ -175,7 +184,6 @@ export default function TimerClock({
   );
 }
 
-//    width: Dimensions.get("window").width/sessionValue,
 const styles = StyleSheet.create({
   sessionText: {
     fontFamily: "dongleBold",
