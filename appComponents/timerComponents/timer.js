@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import {
   Text,
   FlatList,
@@ -23,6 +23,7 @@ import FlatButton from "../../newassets/cards/button";
 import TimerClock from "./timerClock";
 import { TextInput } from "react-native-gesture-handler";
 import { Vibration } from "react-native-web";
+import { ProgressBar } from "react-native-paper";
 
 //the user setting the values happens here, pass through the TimerClock component, pass props
 // the user has to press start or something, and input values FIRST before running the <TimerClock/>
@@ -48,27 +49,13 @@ function TimerDisplay({
       parseInt(parseInt(tempRestAmountMins) * 60 + parseInt(tempRestAmountSecs))
     );
   };
-  const requestVibratePermission = async () => {
-    try {
-      const granted = await PermissionsAndroid.request(
-        PermissionsAndroid.PERMISSIONS.VIBRATE,
-        {
-          title: "Vibrate Permission",
-          message: "Require Vibrate",
-          buttonNeutral: "Ask Me Later",
-          buttonNegative: "Cancel",
-          buttonPositive: "OK",
-        }
-      );
-      if (granted === PermissionsAndroid.RESULTS.GRANTED) {
-        console.log("OK");
-      } else {
-        console.log("Camera permission denied");
-      }
-    } catch (err) {
-      console.warn(err);
-    }
-  };
+  // for automatically changing the focus to next text input
+  const pin1Ref = useRef("1");
+  const pin2Ref = useRef("2");
+  const pin3Ref = useRef("3");
+  const pin4Ref = useRef("4");
+
+  const pin5Ref = useRef("5");
   return (
     <View>
       <Text> Timer Display here, plz work</Text>
@@ -77,20 +64,26 @@ function TimerDisplay({
         <TextInput
           keyboardType="numeric"
           onChangeText={(val) => setSessionAmount(val)}
+          ref={pin1Ref}
+          onSubmitEditing={() => pin2Ref.current.focus()}
           style={styles.timeInput}
         />
       </View>
       <View style={styles.workTimeContainer}>
         <Text style={styles.timeText}>Work time: </Text>
         <TextInput
+          ref={pin2Ref}
           keyboardType="numeric"
           onChangeText={(val) => setTempWorkAmountMins(val)}
+          onSubmitEditing={() => pin3Ref.current.focus()}
           style={styles.timeInput}
         />
         <Text style={styles.timeText}> : </Text>
         <TextInput
           keyboardType="numeric"
           onChangeText={(val) => setTempWorkAmountSecs(val)}
+          ref={pin3Ref}
+          onSubmitEditing={() => pin4Ref.current.focus()}
           style={styles.timeInput}
         />
       </View>
@@ -99,21 +92,19 @@ function TimerDisplay({
         <TextInput
           keyboardType="numeric"
           onChangeText={(val) => setTempRestAmountMins(val)}
+          ref={pin4Ref}
+          onSubmitEditing={() => pin5Ref.current.focus()}
           style={styles.timeInput}
         />
         <Text style={styles.timeText}> : </Text>
         <TextInput
           keyboardType="numeric"
           onChangeText={(val) => setTempRestAmountSecs(val)}
+          ref={pin5Ref}
           style={styles.timeInput}
         />
       </View>
       <Button title="vibrate" onPress={() => Vibration.vibrate()} />
-
-      <Button
-        title="request permission"
-        onPress={() => requestVibratePermission()}
-      />
       <FlatButton text="start timer" onPress={() => StartTimerFunction(1000)} />
     </View>
   );

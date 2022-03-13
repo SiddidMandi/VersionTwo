@@ -11,7 +11,9 @@ import {
   Button,
   Vibration,
 } from "react-native";
+import { ProgressBar, Colors } from "react-native-paper";
 import { Audio } from "expo-av";
+//
 import FlatButton from "../../newassets/cards/button";
 import Animated from "react-native-reanimated";
 
@@ -33,12 +35,14 @@ export default function TimerClock({
   const [restInterval, setRestInterval] = useState(null);
   //the sessions is plural, but when regarding session value/amount, it is singular
   const [sessions, setSessions] = useState(sessionValue - 1); // so it runs excat number of times
+  //for progress bar
 
   const [sound, setSound] = useState(null);
-  const relaxSound = require("../../newassets/sounds/relax.mp3");
 
   const playSound = useCallback(async () => {
-    const { sound } = await Audio.Sound.createAsync(relaxSound);
+    const { sound } = await Audio.Sound.createAsync(
+      require("../../newassets/sounds/relaxM4.mp3")
+    );
     setSound(sound);
     await sound.playAsync();
   });
@@ -63,7 +67,7 @@ export default function TimerClock({
       );
       setIsWorkRunning(false);
       // I think this plays work sound? lets see
-      playSoundWork();
+      //playSoundWork();
     }
     if (workTimer === 0 && isRestRunning === false) {
       clearInterval(workInterval); //clears interval
@@ -84,7 +88,7 @@ export default function TimerClock({
       // add end rest vibration here, add a time value in the brackets
       Vibration.vibrate(300);
       //this sound plays when rest starts
-      playSound();
+      // playSound();
     }
     if (restTimer === 0 && isWorkRunning === false) {
       //   setIsWorkRunning(false); // u cant do this
@@ -172,12 +176,19 @@ export default function TimerClock({
       </View>
       <Text style={styles.sessionText}> Sessions left: {sessions}</Text>
       <View style={styles.timeContainer}>
+        <ProgressBar
+          color="#0000ff"
+          style={{ height: 10, width: 300 }}
+          progress={workTimer / workValue}
+        />
         <Text style={styles.timeText}>Work: {workConvertSecondToMinute()}</Text>
+        <ProgressBar
+          color="#0000ff"
+          style={{ height: 10, width: 300 }}
+          progress={restTimer / restValue}
+        />
         <Text style={styles.timeText}>Rest: {restConvertSecondToMinute()}</Text>
       </View>
-      <Animated.View>
-        <Text> work </Text>
-      </Animated.View>
       <Button title="vibrate" onPress={() => Vibration.vibrate(1000)} />
       <FlatButton onPress={() => terminateTimer()} text="cancel" />
     </View>

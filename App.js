@@ -67,6 +67,8 @@ navigation:
         await sound.playAsync();
     }   )
 
+    react-native-paper
+
   icons: @expo/vector-icons
 
 git notes:
