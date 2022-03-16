@@ -20,6 +20,8 @@ import Animated, {
   SlideInRight,
   SlideOutRight,
   Layout,
+  PinwheelIn,
+  PinwheelOut,
 } from "react-native-reanimated";
 //
 import Card from "../../newassets/cards/card";
@@ -75,8 +77,8 @@ export default function JournalHome() {
   const renderItemFunction = ({ item, index }) => {
     return (
       <Animated.View
-        entering={SlideInRight.delay(index * 300).duration(300)}
-        exiting={SlideOutRight}
+        entering={PinwheelIn.delay(index * 300).duration(1000)}
+        exiting={PinwheelOut}
         layout={Layout.springify()}
         key={item.key}
       >

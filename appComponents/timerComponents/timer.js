@@ -7,12 +7,12 @@ import {
   Button,
   Modal,
   ImageBackground,
-  Animated,
   TouchableOpacity,
   StatusBar,
   Alert,
   PermissionsAndroid,
 } from "react-native";
+import Animated, { FadeIn, FadeOut } from "react-native-reanimated";
 import { MaterialIcons } from "@expo/vector-icons";
 import uuid from "react-native-uuid";
 import AsyncStorage from "@react-native-async-storage/async-storage";
@@ -104,7 +104,6 @@ function TimerDisplay({
           style={styles.timeInput}
         />
       </View>
-      <Button title="vibrate" onPress={() => Vibration.vibrate()} />
       <FlatButton text="start timer" onPress={() => StartTimerFunction(1000)} />
     </View>
   );
@@ -116,29 +115,30 @@ export default function Timer() {
   const [workAmount, setWorkAmount] = useState(4);
   const [sessionAmount, setSessionAmount] = useState(2);
   const [timerShown, setTimerShown] = useState(false);
-  if (timerShown) {
-    return (
-      <SafeAreaView style={styles.innerContainer}>
-        <TimerClock
-          restValue={restAmount}
-          workValue={workAmount}
-          sessionValue={sessionAmount}
-          setTimerShown={setTimerShown}
-        />
-      </SafeAreaView>
-    );
-  } else {
-    return (
-      <SafeAreaView style={styles.innerContainer}>
-        <TimerDisplay
-          setTimerShown={setTimerShown}
-          setRestAmount={setRestAmount}
-          setWorkAmount={setWorkAmount}
-          setSessionAmount={setSessionAmount}
-        />
-      </SafeAreaView>
-    );
-  }
+  console.log(timerShown);
+  return (
+    <View style={styles.innerContainer}>
+      {timerShown ? (
+        <Animated.View entering={FadeIn} exiting={FadeOut.delay(1000)}>
+          <TimerClock
+            restValue={restAmount}
+            workValue={workAmount}
+            sessionValue={sessionAmount}
+            setTimerShown={setTimerShown}
+          />
+        </Animated.View>
+      ) : (
+        <Animated.View entering={FadeIn} exiting={FadeOut}>
+          <TimerDisplay
+            setTimerShown={setTimerShown}
+            setRestAmount={setRestAmount}
+            setWorkAmount={setWorkAmount}
+            setSessionAmount={setSessionAmount}
+          />
+        </Animated.View>
+      )}
+    </View>
+  );
 }
 
 const styles = StyleSheet.create({

@@ -11,11 +11,41 @@ import {
   Button,
   Vibration,
 } from "react-native";
+import Animated, {
+  useAnimatedStyle,
+  useDerivedValue,
+  withTiming,
+  interpolateColor,
+} from "react-native-reanimated";
 import { ProgressBar, Colors } from "react-native-paper";
 import { Audio } from "expo-av";
 //
 import FlatButton from "../../newassets/cards/button";
-import Animated from "react-native-reanimated";
+
+const Box = ({ index, sessionValue }) => {
+  const progress = useDerivedValue(() => {
+    return index < sessionValue
+      ? withTiming(0, { duration: 1000 })
+      : withTiming(1, { duration: 1000 });
+  }, [index, sessionValue]);
+
+  const BoxStyle = useAnimatedStyle(() => {
+    const boxBackground = interpolateColor(
+      progress.value,
+      [0, 1],
+      ["red", "blue"]
+    );
+
+    return {
+      backgroundColor: boxBackground,
+      padding: 10,
+      height: 60,
+      margin: 5,
+      flex: 1,
+    };
+  }, [progress.value]);
+  return <Animated.View style={BoxStyle}></Animated.View>;
+};
 
 export default function TimerClock({
   workValue,
@@ -152,18 +182,7 @@ export default function TimerClock({
   const listSession = [];
   //backgroundColor edit for different colors
   for (let i = 0; i < sessionValue; i++) {
-    listSession.push(
-      <View
-        key={i}
-        style={[
-          styles.boxesStyle,
-          {
-            backgroundColor: i <= sessions - 1 ? "red" : "blue",
-            flex: 1,
-          },
-        ]}
-      ></View>
-    );
+    listSession.push(<Box index={i} key={i} sessionValue={sessions} />);
   }
 
   //in the return, the things are called workTimer and restTimer
@@ -189,7 +208,6 @@ export default function TimerClock({
         />
         <Text style={styles.timeText}>Rest: {restConvertSecondToMinute()}</Text>
       </View>
-      <Button title="vibrate" onPress={() => Vibration.vibrate(1000)} />
       <FlatButton onPress={() => terminateTimer()} text="cancel" />
     </View>
   );
