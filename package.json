@@ -32,7 +32,7 @@
     "react-native-swipeout": "^2.3.6",
     "react-native-uuid": "^2.0.1",
     "react-native-web": "0.17.1",
-    "expo-splash-screen": "~0.14.1"
+    "expo-splash-screen": "~0.20.0"
   },
   "devDependencies": {
     "@babel/core": "^7.12.9"
